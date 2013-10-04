@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * Implements hook_block_view().
+ * 
+ * This remains unchanged, and is a general handler
+ */
+function custom_block_block_view($delta = '') {
+  $block = array();
+
+  if ( is_callable( 'custom_block_block_view_' . $delta ) ) {
+  	$block = call_user_func( 'custom_block_block_view_' . $delta, $delta );
+  } 
+
+  return $block;
+}
+
+
+/**
+ * Implements hook_block_info().
+ *
+ * Add new items to this for each block you want to create.
+ */
+function custom_block_block_info() {
+  $blocks['lipsum_fragment'] = array(
+    'info' => t('Lorem Ipsum fragment'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  $blocks['lipsum_paragraph'] = array(
+    'info' => t('Lorem Ipsum paragraph'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+
+/**
+ * This is the code to generate the lipsum_fragment block.
+ */
+function custom_block_block_view_lipsum_fragment( $delta ) {
+  $block['subject'] = t('Lipsum fragment');
+  $block['content'] = 'Lorem ipsum ' . $delta . ' dolor sit amet, consectetur adipisicing elit, sed do eiusmod.';
+  return $block;
+}
+
+
+
+/**
+ * This is the code to generate the lipsum_paragraph block.
+ */
+function custom_block_block_view_lipsum_paragraph( $delta ) {
+  $block['subject'] = t('Lipsum paragraph');
+  $block['content'] = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+  return $block;
+}

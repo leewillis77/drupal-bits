@@ -1,0 +1,6 @@
+name = Custom view field sample
+description = Test module to test creating view handler
+core = 7.x
+version = 7.x-1.0
+files[] = includes/custom_view_field_handler_field_lorem_paragraph.inc
+files[] = includes/custom_view_field_handler_field_lorem_sentence.inc
