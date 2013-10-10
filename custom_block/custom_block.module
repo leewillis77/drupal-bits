@@ -25,6 +25,8 @@ function custom_block_block_info() {
   $blocks['lipsum_fragment'] = array(
     'info' => t('Lorem Ipsum fragment'),
     'cache' => DRUPAL_NO_CACHE,
+    'visibility' =>  BLOCK_VISIBILITY_PHP, // Note: Only provide visibility if you require PHP - otherwise manage visibility online within Drupal
+    'pages' => '<?php // Do stuff here and return TRUE or FALSE; ?>'
   );
   $blocks['lipsum_paragraph'] = array(
     'info' => t('Lorem Ipsum paragraph'),
