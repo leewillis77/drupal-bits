@@ -26,7 +26,7 @@ function custom_block_block_info() {
     'info' => t('Lorem Ipsum fragment'),
     'cache' => DRUPAL_NO_CACHE,
     'visibility' =>  BLOCK_VISIBILITY_PHP, // Note: Only provide visibility if you require PHP - otherwise manage visibility online within Drupal
-    'pages' => '<?php // Do stuff here and return TRUE or FALSE; ?>'
+    'pages' => '<?php return _custom_block_visibility_lipsum_fragment(); ?>'
   );
   $blocks['lipsum_paragraph'] = array(
     'info' => t('Lorem Ipsum paragraph'),
@@ -34,6 +34,18 @@ function custom_block_block_info() {
   );
   return $blocks;
 }
+
+
+
+/**
+ * Implements block visibility checking for lipsum_fragment block
+ */
+function _custom_block_visibility_lipsum_fragment() {
+  // Block visibility logic for lipsum_fragment block goes here
+  // Return true to show the block, false to hide it
+  return true;
+}
+
 
 
 /**
