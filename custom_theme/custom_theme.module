@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function custom_theme_theme($existing, $type, $theme, $path) {
+  return array(
+    // custom_theme_output_section can be anything, but needs to be unique
+    // across the whole system, so consider a module prefix as per
+    // "custom_theme" here, or at least a client prefix, e.g. obg_
+    'custom_theme_output_section' => array(
+      // The template name can be anything, convention would have it matching
+      // the theme definiton above, with underscores replaced with dashes. That
+      // makes it easy to identify the template file used from the theme() call
+      // without having to hunt out this definition here.
+      'template'  => 'custom-theme-output-section',
+      'path'      => $path . '/tpl',
+      'variables' => array(
+        // "John Doe" is a default, and will be used if no user_name is
+        // supplied when theme() is called.
+        'user_name' => 'John Doe',
+        // You always have to provide a default, make sure it matches the
+        // PHP type that you expect someone to pass, e.g. 0, '', array()
+        'number'    => 0,
+      ),
+    ),
+    // Another example, with no comments so you can see what it would look like
+    // in practice.
+    'custom_theme_other_section' => array(
+      'template'  => 'custom-theme-other-section',
+      'path'      => $path . '/tpl',
+      'variables' => array(
+        'user_name' => 'John Doe',
+        'number'    => 0,
+      ),
+    ),
+  );
+}
+
+
+
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * This makes the variables available for output in node.tpl.php, e.g.
+ *     print $output_section_with_data;
+ *     print $output_section_without_data;
+ *     print $other_section;
+ *
+ * @param  array $variables  The variables array for rendering.
+ */
+function custom_theme_preprocess_node( &$variables ) {
+  // Use the defined theme template with a specified name, and number, and store
+  // the output in the $variables array for output in node.tpl.php. Take care to
+  // properly escape output here.
+  $variables['output_section_with_data'] = theme(
+    'custom_theme_output_section',
+    array(
+      'user_name' => 'Lord Lucan',
+      'number' => 99,
+    )
+  );
+  // Use the defined theme template with no data - the defaults will be picked
+  // up from the hook_theme() definition above.
+  // Store the output in the $variables array for output in node.tpl.php
+  $variables['output_section_without_data'] = theme(
+    'custom_theme_output_section',
+    array()
+  );
+  $variables['other_section'] = theme(
+    'custom_theme_other_section',
+    array()
+  );
+}

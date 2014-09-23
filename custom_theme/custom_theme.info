@@ -1,0 +1,4 @@
+name = Custom hook_theme implementations
+description = Custom hook_theme() definitions and sample usage
+core = 7.x
+version = 7.x-1.0
